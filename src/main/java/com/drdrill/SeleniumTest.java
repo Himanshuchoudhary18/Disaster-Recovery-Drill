@@ -22,6 +22,35 @@ public class SeleniumTest {
     driver.findElement(By.id("login-button")).click();
   
     // Add assertions or verification steps here to check if login is successful
+
+
+        // Navigate to the critical application weblogic console login page
+        driver.get("https://localhost:8001/console/login/LoginForm.jsp");
+
+        // Perform actions specific to the critical application login
+        driver.findElement(By.id("username")).sendKeys("admin");
+        driver.findElement(By.id("password")).sendKeys("admin123");
+        driver.findElement(By.name("Submit")).click();
+
+        // Add further steps specific to the critical application after login
+        // ...
+
+        // Close the critical application console
+        driver.quit();
+
+        // Create a new instance of the Chrome driver
+        driver = new ChromeDriver();
+
+        // Navigate to the non-critical application weblogic console login page
+        driver.get("https://localhost:7001/console/login/LoginForm.jsp");
+
+        // Perform actions specific to the non-critical application login
+        driver.findElement(By.id("username")).sendKeys("admin");
+        driver.findElement(By.id("password")).sendKeys("admin456");
+        driver.findElement(By.name("Submit")).click();
+
+        // Add further steps specific to the non-critical application after login
+        // ...
   
     // Close the browser
     driver.quit();
