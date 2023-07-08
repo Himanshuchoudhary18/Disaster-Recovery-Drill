@@ -13,7 +13,6 @@ function Header() {
       <ScrollLink to="services" smooth={true} duration={500}>
       Services
       </ScrollLink>       
-      <a href="/services">Services</a>
       <Link to="/team">Team</Link>
       <Link to="/contact">Contact</Link>
     </ul>
