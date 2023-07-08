@@ -1,7 +1,4 @@
 package com.drdrill;
-
-import java.io.IOException;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -25,148 +22,88 @@ public class SeleniumTest {
 
         // Add assertions or verification steps here to check if login is successful
 
-        // Navigate to the critical application weblogic console login page
-        driver.get("https://localhost:8001/console/login/LoginForm.jsp");
+        // Define the critical and non-critical WebLogic URLs
+        String criticalWebLogicURL = "https://localhost:8001/console/login/LoginForm.jsp";
+        String nonCriticalWebLogicURL = "https://localhost:7001/console/login/LoginForm.jsp";
 
-        // Check if WebLogic is running by verifying the presence of a specific element
-        boolean isCriticalWebLogicRunning = driver.findElement(By.id("username")).isDisplayed();
+        // Check if Critical WebLogic is running
+        boolean isCriticalWebLogicRunning = isWebLogicRunning(driver, criticalWebLogicURL, "Critical");
 
         if (isCriticalWebLogicRunning) {
-            // WebLogic is running
-            System.out.println("Critical WebLogic is running");
+            // Perform actions specific to the Critical WebLogic console
+            performWebLogicActions(driver, "admin", "admin123");
 
-            // Perform actions specific to the WebLogic console login
-            driver.findElement(By.id("username")).sendKeys("admin");
-            driver.findElement(By.id("password")).sendKeys("admin123");
-            driver.findElement(By.name("Submit")).click();
-
-            // Add further steps specific to the WebLogic console after login
-            // ...
-
-            // Close the critical application console
+            // Close the Critical application console
             driver.quit();
         } else {
-            // WebLogic is not running
             System.out.println("Critical WebLogic is not running");
-            // Add command line commands or actions to perform when WebLogic is not running
-            // For example, navigate to a specific file on the D drive
-            try {
-                String command = "cmd /c cd /d D:\\Oracle\\Middleware\\Oracle_Home\\user_projects\\domains\\CRITICAL\\bin";
-                Process process = Runtime.getRuntime().exec(command);
-                int exitCode = process.waitFor();
 
-                if (exitCode == 0) {
-                    // Command executed successfully
-                    System.out.println("Navigated to the specified file on the D drive");
-
-                    try {
-                        // Specify the path to the .sh file
-                        String scriptPath1 = "/StartNodeManager.sh";
-                        String scriptPath2 = "/StartComponent.sh";
-
-                        // Create a process builder for running the shell script
-                        ProcessBuilder processBuilder1 = new ProcessBuilder("sh", scriptPath1);
-                        ProcessBuilder processBuilder2 = new ProcessBuilder("sh", scriptPath2);
-            
-                        // Run the shell script
-                        Process scriptProcess1 = processBuilder1.start();
-                        Process scriptProcess2 = processBuilder2.start();
-
-                        // Wait for the script to finish executing
-                        int scriptExitCode1 = scriptProcess1.waitFor();
-                        int scriptExitCode2 = scriptProcess2.waitFor();
-            
-                        if (scriptExitCode1 == 0 && scriptExitCode2 ==0) {
-                            System.out.println("Shell script executed successfully");
-
-                        } else {
-                            System.out.println("Shell script execution failed");
-                        }
-                    } catch (IOException | InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    // Command failed to execute
-                    System.out.println("Failed to navigate to the specified file on the D drive");
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            // Add command line commands or actions to perform when Critical WebLogic is not running
+            executeShellScript("D:\\Oracle\\Middleware\\Oracle_Home\\user_projects\\domains\\CRITICAL\\bin",
+                    "/StartNodeManager.sh", "/StartComponent.sh");
         }
 
-        // Create a new instance of the Chrome driver
-        driver = new ChromeDriver();
-
-        // Navigate to the Non critical application weblogic console login page
-        driver.get("https://localhost:7001/console/login/LoginForm.jsp");
-
-        // Check if WebLogic is running by verifying the presence of a specific element
-        boolean isNonCriticalWebLogicRunning = driver.findElement(By.id("username")).isDisplayed();
+        // Check if Non-Critical WebLogic is running
+        boolean isNonCriticalWebLogicRunning = isWebLogicRunning(driver, nonCriticalWebLogicURL, "Non-Critical");
 
         if (isNonCriticalWebLogicRunning) {
-            // WebLogic is running
-            System.out.println("Non Critical WebLogic is running");
+            // Perform actions specific to the Non-Critical WebLogic console
+            performWebLogicActions(driver, "admin", "admin123");
 
-            // Perform actions specific to the WebLogic console login
-            driver.findElement(By.id("username")).sendKeys("admin");
-            driver.findElement(By.id("password")).sendKeys("admin123");
-            driver.findElement(By.name("Submit")).click();
-
-            //Add further steps specific to the WebLogic console after login
-            // ...
-
-
-            // Close the critical application console
+            // Close the Non-Critical application console
             driver.quit();
         } else {
-            // Non Critical WebLogic is not running
-            System.out.println("Non Critical WebLogic is not running");
-            // Add command line commands or actions to perform when WebLogic is not running
-            // For example, navigate to a specific file on the D drive
-            try {
-                String command = "cmd /c cd /d D:\\Oracle\\Middleware\\Oracle_Home\\user_projects\\domains\\CRITICAL\\bin";
-                Process process = Runtime.getRuntime().exec(command);
-                int exitCode = process.waitFor();
+            System.out.println("Non-Critical WebLogic is not running");
 
-                if (exitCode == 0) {
-                    // Command executed successfully
-                    System.out.println("Navigated to the specified file on the D drive");
+            // Add command line commands or actions to perform when Non-Critical WebLogic is not running
+            executeShellScript("D:\\Oracle\\Middleware\\Oracle_Home\\user_projects\\domains\\CRITICAL\\bin",
+                    "/StartNodeManager.sh", "/StartComponent.sh");
+        }
+    }
 
-                    try {
-                        // Specify the path to the .sh file
-                        String scriptPath1 = "/StartNodeManager.sh";
-                        String scriptPath2 = "/StartComponent.sh";
+    // Method to check if WebLogic is running by verifying the presence of a specific element
+    public static boolean isWebLogicRunning(WebDriver driver, String url, String type) {
+        driver.get(url);
+        boolean isWebLogicRunning = driver.findElement(By.id("username")).isDisplayed();
+        if (isWebLogicRunning) {
+            System.out.println(type + " WebLogic is running");
+        }
+        return isWebLogicRunning;
+    }
 
-                        // Create a process builder for running the shell script
-                        ProcessBuilder processBuilder1 = new ProcessBuilder("sh", scriptPath1);
-                        ProcessBuilder processBuilder2 = new ProcessBuilder("sh", scriptPath2);
-            
-                        // Run the shell script
-                        Process scriptProcess1 = processBuilder1.start();
-                        Process scriptProcess2 = processBuilder2.start();
+    // Method to perform actions specific to the WebLogic console login
+    public static void performWebLogicActions(WebDriver driver, String username, String password) {
+        driver.findElement(By.id("username")).sendKeys(username);
+        driver.findElement(By.id("password")).sendKeys(password);
+        driver.findElement(By.name("Submit")).click();
+        // Add further steps specific to the WebLogic console after login
+        // ...
+    }
 
-                        // Wait for the script to finish executing
-                        int scriptExitCode1 = scriptProcess1.waitFor();
-                        int scriptExitCode2 = scriptProcess2.waitFor();
-            
-                        if (scriptExitCode1 == 0 && scriptExitCode2 ==0) {
-                            System.out.println("Shell script executed successfully");
+    // Method to execute a shell script
+    public static void executeShellScript(String directory, String... scriptPaths) {
+        try {
+            String command = "cmd /c cd /d " + directory;
+            Process process = Runtime.getRuntime().exec(command);
+            int exitCode = process.waitFor();
 
-                        } else {
-                            System.out.println("Shell script execution failed");
-                        }
-                    } catch (IOException | InterruptedException e) {
-                        e.printStackTrace();
+            if (exitCode == 0) {
+                System.out.println("Navigated to the specified directory: " + directory);
+                for (String scriptPath : scriptPaths) {
+                    ProcessBuilder processBuilder = new ProcessBuilder("sh", scriptPath);
+                    Process scriptProcess = processBuilder.start();
+                    int scriptExitCode = scriptProcess.waitFor();
+                    if (scriptExitCode == 0) {
+                        System.out.println("Shell script " + scriptPath + " executed successfully");
+                    } else {
+                        System.out.println("Shell script " + scriptPath + " execution failed");
                     }
-                } else {
-                    // Command failed to execute
-                    System.out.println("Failed to navigate to the specified file on the D drive");
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
+            } else {
+                System.out.println("Failed to navigate to the specified directory: " + directory);
             }
-
-    
-  }
-}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
