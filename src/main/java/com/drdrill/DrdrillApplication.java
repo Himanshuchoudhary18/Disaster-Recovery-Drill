@@ -25,7 +25,7 @@ public class DrdrillApplication {
     String recipientEmail = "owner@division.com";
     String subject = "Server Maintenance Notification";
     String content = "The server will undergo maintenance and will be unavailable for 1 hour.";
-    emailService.sendEmail(recipientEmail, subject, content);
+    emailService.sendEmail(recipientEmail, subject, content, null, null);
   }
   @Scheduled(cron = "0 0 0 * * ?") // Run at midnight
   public void scheduledProcess() {
