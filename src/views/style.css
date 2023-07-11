@@ -1,8 +1,5 @@
 /* Reset some default styles */
 body,
-h1,
-h2,
-h3,
 p,
 ul,
 li,
@@ -12,9 +9,26 @@ textarea,
 button {
     margin: 10px;
     padding: 0px;
+    box-sizing: border-box;
+}
 
+h1,
+h2,
+h3 {
+    margin: 12px;
+    padding: 0px;
+    margin-bottom: 0px;
     box-sizing: border-box;
     font-family: Arial, sans-serif;
+    color: #a20a3a;
+}
+
+#hero {
+    color: #a20a3a;
+}
+
+#about h2 {
+    background-color: green;
 }
 
 body {
@@ -37,10 +51,10 @@ body {
 
 .img {
     width: 150px;
-
 }
 
 .container {
+    background-image: url("img/R.jpg");
     max-width: 960px;
     margin: 0 auto;
     padding: 40px;
@@ -52,68 +66,64 @@ header {
     align-items: center;
     padding: 10px;
     background-color: #a20a3a;
-  }
-  header img {
+}
+
+header img {
     height: 38px;
     width: 320px;
-  }
-  
-  nav {
+}
+
+nav {
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  
-  nav ul {
+}
+
+nav ul {
     display: flex;
     justify-content: center;
     list-style: none;
     padding: 0;
     margin: 0;
-  }
-  
-  nav ul a {
+}
+
+nav ul a {
     margin: 0 10px;
     text-decoration: none;
     color: #ffffff;
     transition: color 0.3s ease;
-  }
-  
-  nav ul a:hover {
+}
+
+nav ul a:hover {
     color: #f6b801;
     background-color: #a20a3a;
-  }
-  
-  
-  .nav-logo {
+}
+
+
+.nav-logo {
     margin-right: auto;
-  }
-  
-  
-  
-  
+}
+
+
+
+
 
 section {
     padding: 80px 0;
     text-align: center;
 }
 
-h1,
-h2,
-h3 {
-    margin-bottom: 0px;
-}
-
 p {
     line-height: 1.5;
 }
 
-.Ccontainer{
+.Ccontainer {
     background-color: #333333;
     color: #ffffff;
     text-align: center;
     padding: 10px 0;
 }
+
 .btn {
     display: inline-block;
     background-color: #a20a3a;
@@ -123,15 +133,15 @@ p {
     border-radius: 4px;
     transition: background-color 0.3s ease;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
-  }
-  
-  .btn:hover {
+}
+
+.btn:hover {
     background-color: #a20a3a;
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
-  }
-  
-  
-  
+}
+
+
+
 
 .services-grid {
     display: grid;
