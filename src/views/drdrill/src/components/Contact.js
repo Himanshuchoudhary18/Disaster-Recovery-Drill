@@ -4,7 +4,7 @@ const Contact = () => {
   return (
     <div className="bg-white rounded-lg p-8 shadow-md min-h-screen">
       <h1 className="text-2xl font-bold mb-4">Contact Us</h1>
-      <p className="mb-4">Get in touch with Coconut Fashion Brand</p>
+      <p className="mb-4">Get in touch with us</p>
       <form>
         <div className="mb-4">
           <label htmlFor="name" className="block font-medium mb-2">Name:</label>
@@ -15,10 +15,10 @@ const Contact = () => {
           <input type="email" id="email" name="email" className="border-gray-300 border rounded-lg p-2 w-full" />
         </div>
         <div className="mb-4">
-          <label htmlFor="message" className="block font-medium mb-2">Message:</label>
-          <textarea id="message" name="message" rows="5" className="border-gray-300 border rounded-lg p-2 w-full"></textarea>
+          <label htmlFor="message" className="">Message:</label>
+          <textarea id="message" name="message" rows="5" className=""></textarea>
         </div>
-        <button type="submit" className="bg-stone-300 hover:bg-stone-400 p-2 text-white rounded-lg px-4 py-2">Submit</button>
+        <button type="submit" className="btn">Submit</button>
       </form>
     </div>
   );

@@ -7,9 +7,9 @@ import {Provider} from "react-redux";
 import Store  from "./utils/store";
 import UserContext from "./utils/UserContext";
 import Body from './components/Body';
-
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom"; // for routing our page import createBrowserRouter and RouterProvider for providing router & Outlet for children component for nested routing
 import Contact from "./components/Contact";
+import Footer from './components/Footer';
 
 
 
@@ -28,6 +28,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
     <Outlet/>
     {/* <Footer/> */}
     </UserContext.Provider>
+    <Footer/>
     </Provider>
     
   </>

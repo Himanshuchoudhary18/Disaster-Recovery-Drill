@@ -11,11 +11,18 @@ public class EmailService {
     @Autowired
     private JavaMailSender javaMailSender;
 
-    public void sendEmail(String recipient, String subject, String body) {
+    public void sendEmail(String recipient, String subject, String body, String cc, String bcc) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(recipient);
         message.setSubject(subject);
         message.setText(body);
+        if (cc != null) {
+            message.setCc(cc);
+        }
+        
+        if (bcc != null) {
+            message.setBcc(bcc);
+        }
         javaMailSender.send(message);
     }
 }
